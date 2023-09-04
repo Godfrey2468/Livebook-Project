@@ -1,0 +1,36 @@
+# Livebook Tutorial
+
+## Scalability
+
+An application program would be scalable if it could be moved from a smaller to a larger operating system and take full advantage of the larger operating system in terms of performance (user response time and so forth) and the larger number of users that could be handled.
+
+All Elixir code runs inside lightweight threads of execution (called processes) that are isolated and exchange information via messages
+Due to their lightweight nature, you can run hundreds of thousands of processes concurrently in the same machine, using all machine resources efficiently (vertical scaling). Processes may also communicate with other processes running on different machines to coordinate work across multiple nodes (horizontal scaling).
+
+```elixir
+current_process = self()
+
+# Spawn an Elixir process (not an operating system one!)
+spawn_link(fn ->
+  send(current_process, {:msg, "hello world"})
+end)
+
+# Block until the message is received
+receive do
+  {:msg, contents} -> IO.puts(contents)
+end
+```
+
+For further below is a code that spawns up one million processes and gives the process Identifyers (PID) and is done so in about 20 seconds.
+
+```elixir
+for _ <- 1..1_000_000 do
+  spawn(fn -> :ok end)
+end
+```
+
+## Concurrency
+
+## Fault Tolerance
+
+## Functional Programming
