@@ -7,6 +7,8 @@ In this project, an overview of Livebook is given and later on an in-depth walk-
 Livebook is a web application for writing interactive and collaborative code notebooks, just as Jupyter notebook works with Python. Livebook and its features work well with Elixir and beam to best bring out the core elixir features.
 
 The elixir features to be demonstrated in this project via livebook could also be considered as the benefits of using Elixir and they include;
+
+
 1.Scalability - an application program would be scalable if it could be moved from a smaller to a larger operating system and take full advantage of the larger operating system in terms of performance (user response time and so forth) and the larger number of users that could be handled.
 
 - This is seen on the portability and being able to version control .livemd files, even using third party applications such as GitHub.
