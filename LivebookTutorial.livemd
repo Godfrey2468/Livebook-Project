@@ -33,6 +33,17 @@ end
 
 Test Github Version Control
 
+```elixir
+Kino.Process.render_seq_trace(fn ->
+  1..4
+  |> Task.async_stream(
+    fn _ -> Process.sleep(Enum.random(100..300)) end,
+    max_concurrency: 4
+  )
+  |> Stream.run()
+end)
+```
+
 ## Fault Tolerance
 
 Elixir uses supervisor to monitor the child processes. If a child process crashes, supervisor will restart it.
