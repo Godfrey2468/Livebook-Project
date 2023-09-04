@@ -35,4 +35,34 @@ Test Github Version Control
 
 ## Fault Tolerance
 
+Elixir uses supervisor to monitor the child processes. If a child process crashes, supervisor will restart it.
+A supervisor is a process which supervises other processes, which we refer to as child processes. Supervisors are used to build a hierarchical process structure called a supervision tree. Supervision trees provide fault-tolerance and encapsulate how our applications start and shutdown.
+
+Livebook does allow spawning of Supervisor and child processes and thus handling Fault Tolerance.
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.9.1"}
+])
+```
+
+We meet our first intergration using Livebook called Kino, this can be used to trace processes as shown below.
+
+```elixir
+Kino.Process.render_seq_trace(fn ->
+  child =
+    spawn(fn ->
+      receive do
+        {:ping, caller} -> send(caller, :pong)
+      end
+    end)
+
+  send(child, {:ping, self()})
+
+  receive do
+    :pong -> :it_worked!
+  end
+end)
+```
+
 ## Functional Programming
