@@ -28,7 +28,7 @@ The elixir features to be demonstrated in this project via livebook could also b
 1. Scalability - an application program would be scalable if it could be moved from a smaller to a larger operating system and take full advantage of the larger operating system in terms of performance (user response time and so forth) and the larger number of users that could be handled.
 This is seen on the portability and being able to version control .livemd files, even using third party applications such as GitHub.
 
-2. Concurrency  -  the ability to perform two or more tasks apparently at the same time.
+2. [Concurrency](https://youtu.be/xF-_goFLaFo?t=43)  -  the ability to perform two or more tasks apparently at the same time.
 This is demonstrated by being able to run multiple nodes that use Elixir BEAM on Livebook . The teaming feature unfortunately is still under development. Bidirectional live counter is one good example.
 
 3. [Fault- tolerance](https://fly.io/blog/livebook-for-app-documentation/) - Elixir has built-in support for fault tolerance, including features like supervision trees and fault-recovery mechanisms. Livebook does support supervision and child processes using Kino.
