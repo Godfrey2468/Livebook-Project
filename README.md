@@ -31,9 +31,9 @@ This is seen on the portability and being able to version control .livemd files,
 2.Concurrency  -  the ability to perform two or more tasks apparently at the same time.
 This is demonstrated by being able to run multiple nodes that use Elixir BEAM on Livebook . The teaming feature unfortunately is still under development. Bidirectional live counter is one good example.
 
-3.Fault- tolerance - Elixir has built-in support for fault tolerance, including features like supervision trees and fault-recovery mechanisms. Livebook does support supervision and child processes using Kino.
+3. [Fault- tolerance](https://fly.io/blog/livebook-for-app-documentation/) - Elixir has built-in support for fault tolerance, including features like supervision trees and fault-recovery mechanisms. Livebook does support supervision and child processes using Kino.
 
-4.Functional programming - this will be a simple code snippet showing Elixir’s functional programming and the output.
+4. [Functional Programming](https://www.youtube.com/watch?v=HjEHtM0XQU8&ab_channel=UnderjordbyLarsWikman) - this will be a simple code snippet showing Elixir’s functional programming and the output.
 
 
 5.Erlang compatibility - You can directly code Erlang on Livebook side by side with Elixir and this will be demonstrated by a  simple piece of code in both erlang and Elixir.
