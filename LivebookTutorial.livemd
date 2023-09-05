@@ -1,5 +1,9 @@
 # Livebook Tutorial
 
+## Functional Programming
+
+Functional programming is a paradigm of building computer programs using expressions and functions without mutating state and data. Meaning in Elixir data is immutable.
+
 ## Scalability
 
 An application program would be scalable if it could be moved from a smaller to a larger operating system and take full advantage of the larger operating system in terms of performance (user response time and so forth) and the larger number of users that could be handled.
@@ -35,7 +39,13 @@ Test Github Version Control
 
 <!-- livebook:{"break_markdown":true} -->
 
-We meet our first intergration using Livebook called Kino, this can be used to trace processes as shown below.
+We meet our first intergration and dependancy  using Livebook called Kino, this can be used to trace processes as shown below.
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.9.1"}
+])
+```
 
 ```elixir
 Kino.Process.render_seq_trace(fn ->
@@ -56,12 +66,6 @@ A supervisor is a process which supervises other processes, which we refer to as
 Livebook does allow spawning of Supervisor and child processes and thus handling Fault Tolerance.
 
 ```elixir
-Mix.install([
-  {:kino, "~> 0.9.1"}
-])
-```
-
-```elixir
 Kino.Process.render_seq_trace(fn ->
   child =
     spawn(fn ->
@@ -77,10 +81,6 @@ Kino.Process.render_seq_trace(fn ->
   end
 end)
 ```
-
-## Functional Programming
-
-Functional programming is a paradigm of building computer programs using expressions and functions without mutating state and data. Meaning in Elixir data is immutable.
 
 ## Erlang Compatability
 

@@ -1,0 +1,246 @@
+# Shawn Livebook freecode camp
+
+## Section
+
+## Atom
+
+```elixir
+:error
+```
+
+```elixir
+{:error, reason} = {:error, "file not found"}
+```
+
+```elixir
+{:ok, msg} = {:ok, "status 200 ok"}
+msg
+```
+
+```elixir
+name = "Shawn"
+msg = "Hello " <> name
+```
+
+```elixir
+<<head, rest::binary>> = name
+head
+```
+
+```elixir
+?s
+?h
+?a
+?w
+?n
+```
+
+```elixir
+head == ?S
+```
+
+```elixir
+<<"S", rest::binary>> = name
+rest
+```
+
+```elixir
+chars = "Mumbo"
+'Hello ' ++ chars
+```
+
+```elixir
+my_pid = self()
+my_pid
+```
+
+## Linked lists
+
+```elixir
+list = ["a", "b", "c"]
+Enum.at(list, 0)
+```
+
+```elixir
+[first, second, third] = list
+second
+```
+
+```elixir
+[.., .., third]
+```
+
+```elixir
+hd(list)
+```
+
+```elixir
+tl(list)
+```
+
+```elixir
+[h | t] = list
+h
+```
+
+## Tuple
+
+```elixir
+{a, b, c} = {1, 2, 3}
+a
+```
+
+```elixir
+{:reply, msg, state} = {:reply, "Spirit of Ecstacy", ["Shawn", "Albert", "Owino"]}
+
+msg
+```
+
+## Keyword List
+
+```elixir
+data = [a: 1, b: 2]
+```
+
+```elixir
+[{:a, 1}] = [a: 1]
+```
+
+```elixir
+data[:a]
+```
+
+## Maps
+
+```elixir
+my_map = %{a: 1, b: 2, c: 3}
+my_map
+```
+
+```elixir
+%{a: first, b: second, c: third} = my_map
+first
+```
+
+```elixir
+%{c: third} = my_map
+third
+```
+
+```elixir
+my_map.a
+```
+
+```elixir
+map2 = %{"s" => 1, "h" => 2, "a" => 3, "w" => 4, "n" => 5}
+```
+
+```elixir
+%{"w" => w} = map2
+w
+```
+
+```elixir
+map2 = %{map2 | "a" => 10}
+```
+
+```elixir
+my_map = %{my_map | c: 7}
+```
+
+## Struct
+
+The keyword list used with defstruct defines what fields the struct will have along with their default values.
+
+Structs take the name of the module they’re defined in. In the example above, we defined a struct named User.
+
+We can now create User structs by using a syntax similar to the one used to create maps:
+
+```elixir
+defmodule User do
+  defstruct username: "", email: "", age: nil
+end
+```
+
+```elixir
+user1 = %User{username: "Shawn", age: 26, email: "MUmbo@shawn.owino"}
+```
+
+```elixir
+%{username: username} = user1
+username
+```
+
+```elixir
+user1 = %{user1 | age: 21}
+```
+
+## Flow Control
+
+## case
+
+```elixir
+list = [1, 2, 3]
+```
+
+```elixir
+case Enum.at(list, 2) do
+  1 -> "This will not print"
+  3 -> "Found your match"
+  _ -> "catch hands"
+end
+```
+
+```elixir
+defmodule Post do
+  defstruct(
+    id: nil,
+    title: "",
+    description: "",
+    author: ""
+  )
+end
+```
+
+```elixir
+post1 = %Post{id: 1, title: "Title No 1", author: "Julius Caeser"}
+```
+
+```elixir
+case post1 do
+  %{author: "Shawn"} -> "Got a post from Shawn"
+  %{author: "Anil Mumbo"} -> "Got a post from Anil Mumbo"
+  %{author: author} -> "Got a post from #{author}"
+end
+```
+
+```elixir
+post1 = %{post1 | author: "Anil Mumbo"}
+```
+
+## Cond
+
+```elixir
+cond do
+  post1.author == "Shawn" -> "Editing a post from Shawn"
+  post1.author == "Anil Mumbo" -> "Editing a post from Anil Mumbo"
+  true -> "This is a catch all"
+end
+```
+
+```elixir
+cond do
+  hd(list) == 1 -> "Got a 1"
+  true -> "Head is #{hd(list)}"
+end
+```
+
+## If/Else
+
+```elixir
+if true do
+  "This will work"
+else
+  "Else this will work"
+end
+```
