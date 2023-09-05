@@ -38,8 +38,7 @@ This is demonstrated by being able to run multiple nodes that use Elixir BEAM on
 
 5. Erlang compatibility - You can directly code Erlang on Livebook side by side with Elixir and this will be demonstrated by a  simple piece of code in both erlang and Elixir.
 
-6. OTP Distribution- 
-Elixir allows us to communicate across these nodes via a few different mechanisms, this is equally possible in Livebook and can be demonstrated using a portal game
+6. [OTP Distribution](https://www.youtube.com/watch?v=P0WJBP2bzuk&ab_channel=Beambasket)- Elixir allows us to communicate across these nodes via a few different mechanisms, this is equally possible in Livebook and can be demonstrated using a portal game
 
 
 By the end of the project should be a clear understanding of,
