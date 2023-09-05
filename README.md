@@ -12,7 +12,7 @@ Some of the Livebook features that will be learned during the demonstration incl
 
 1 Markdown Support
 
-2 Inline Documentation and code formatting
+2 [Inline Documentation and code formatting](https://fly.io/blog/livebook-for-app-documentation/)
 
 3 [Interactive results such as tables , data visualization and maps](https://www.youtube.com/watch?v=U6nuPjyAUPw&ab_channel=Livebook)
 
@@ -55,6 +55,7 @@ Websites Used
 -
 1. [Elixir-Lang website](https://elixir-lang.org/)
 2. [Elixir-Hexdocs](https://hexdocs.pm/elixir/Kernel.html)
+3. [Fly.io Blog on Livebook](https://fly.io/blog/livebook-for-app-documentation/)
 
 Videos Used
 -
