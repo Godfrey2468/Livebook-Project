@@ -6,7 +6,7 @@ Scoping Document.
 In this project, an overview of Livebook is given and later on an in-depth walk-through.
 Livebook is a web application for writing interactive and collaborative code notebooks, just as Jupyter notebook works with Python. Livebook and its features work well with Elixir and beam to best bring out the core elixir features. It is powered by [Nx](https://www.youtube.com/watch?v=fPKMmJpAGWc&ab_channel=CodeSync). The Livebook GitHub Repo has a well documented installation guide that can be found [here](https://github.com/livebook-dev/livebook)
 
-[Elixir New Features 0.7](https://www.youtube.com/watch?v=lyiqw3O8d_A&list=PLezCyUgorHVYR-M80A8rIx0fwy4E61RBE&index=2&ab_channel=Livebook) Please note at the time of writing the latest version is 0.8 comes with a new smart cell type that makes experimenting with neural networks like StableDiffusion, GPT2, and others incredibly easy.
+[Elixir New Features 0.7](https://www.youtube.com/watch?v=lyiqw3O8d_A&list=PLezCyUgorHVYR-M80A8rIx0fwy4E61RBE&index=2&ab_channel=Livebook) Please note at the time of writing the latest version is 0.10 according to the Livebook Github Repository.
 
 Some of the Livebook features that will be learned during the demonstration include but not limited to;
 
