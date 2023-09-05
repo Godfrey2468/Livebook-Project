@@ -33,6 +33,10 @@ end
 
 Test Github Version Control
 
+<!-- livebook:{"break_markdown":true} -->
+
+We meet our first intergration using Livebook called Kino, this can be used to trace processes as shown below.
+
 ```elixir
 Kino.Process.render_seq_trace(fn ->
   1..4
@@ -57,8 +61,6 @@ Mix.install([
 ])
 ```
 
-We meet our first intergration using Livebook called Kino, this can be used to trace processes as shown below.
-
 ```elixir
 Kino.Process.render_seq_trace(fn ->
   child =
@@ -78,6 +80,20 @@ end)
 
 ## Functional Programming
 
+Functional programming is a paradigm of building computer programs using expressions and functions without mutating state and data. Meaning in Elixir data is immutable.
+
 ## Erlang Compatability
+
+When we go to the link;
+
+https://github.com/livebook-dev/livebook/blob/main/lib/livebook/notebook/learn/intro_to_livebook.livemd
+
+Under erlang support,
+
+Livebook also allows developers to write Erlang code. To do so, click on the submenu option on the right side of the "Elixir" cell button and choose Erlang.
+
+```elixir
+[io:format("~ts", [Cat]) || Cat <- Cats].
+```
 
 ## OTP DISTRIBUTION
