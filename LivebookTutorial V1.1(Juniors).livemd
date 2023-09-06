@@ -1,0 +1,390 @@
+# Livebook Tutorial V1.1(Juniors)
+
+## Junior Section
+
+### What is Elixir?
+
+* The [Elixir-Lang website](https://elixir-lang.org/getting-started/introduction.html) that explains what is Elixir and its core features
+
+* The [Elixir-Hex Docs](https://hexdocs.pm/elixir/Kernel.html) Documentation that explains the data structures of Elixir,  Modules, functions and everything there is to know about Elixir
+
+* The [Elxir School Websites](https://elixirschool.com/en/lessons/basics) under basics describes perfectly what a Junior Elixir developer should be comfortable with, have a look at it anytime things seem confusing or out of scope.
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Introduction to Livebook
+
+Learn section on Livebook, Click on 'Welcome to Livebook'  and this is a helper guide notebook available under the Learn section on Livebook and it helps a developer understand their way around operating Livebook.
+
+The most current version at the time of writing this document is Livebook 0.10 and its new features have been listed [here](https://news.livebook.dev/whats-new-in-livebook-0.10---introducing-multi-session-livebook-apps-3Dbpss), these include [Multi Session support](https://www.youtube.com/watch?v=dSjryA1iFng&ab_channel=Livebook), [Presentation View](https://www.youtube.com/watch?v=Tlo4mYK8UuM&ab_channel=Livebook),[Erlang Support](https://www.youtube.com/watch?v=Jsv3-2XPc-k&ab_channel=Livebook), [Live Dock Tests](https://www.youtube.com/watch?v=G4VHl-polXg&ab_channel=Livebook), [Dataframe FileExport](https://www.youtube.com/watch?v=_VYiYlmOOlk&ab_channel=Livebook)
+
+### Functional Programming from freecodecamp.
+
+This is a well detailed [Youtube Video](https://www.youtube.com/watch?v=IiIgm_yaoOA&ab_channel=freeCodeCamp.org) that explains the most important concepts on learning Elixir he covers the topics below
+
+##### Topics
+
+1. Introduction to Functional Programming
+2. Introduction to Elixir
+3. Installation & Set Up
+4. Introduction to Recursion
+5. Notebooks -
+   1. Match Operator
+   2. Pattern Matching
+   3. Data Types - Tuple, Atom, List, Map, Struct
+   4. Flow Control - Recursion, for, cond, case, with
+6. Introduction to Mix
+7. Mix - Tutorials
+8. Mix - Stats Project
+9. Conclusion
+10. Final Words
+
+The FreecodeCamp [Repository by Octallium](https://github.com/octallium/functional-programming-with-elixir) that contains the .livemd(Livebook Files used in the tutorial.) under the Notebooks Section, these files can be found. Go through the Video as he explains concepts of Elixir that will be of great importance.
+
+The [three projects](https://youtu.be/IiIgm_yaoOA?t=11700) done in the Last three sections of the video have been done in VS-Code, this being a Livebook Tutorial they have been attached below for convinience, they include:
+
+1. Seven Wonders
+2. Expense Manager
+3. Project Stats
+
+<!-- livebook:{"break_markdown":true} -->
+
+#### 1. Seven Wonders
+
+```elixir
+defmodule SevenWonders do
+  defstruct name: "", country: ""
+  alias SevenWonders
+
+  @type t :: %SevenWonders{
+          name: String.t(),
+          country: String.t()
+        }
+
+  @spec all :: [t()]
+  def all() do
+    [
+      %SevenWonders{name: "Taj Mahal", country: "India"},
+      %SevenWonders{name: "Chichen Itza", country: "Mexico"},
+      %SevenWonders{name: "Petra", country: "Jordan"},
+      %SevenWonders{name: "Machu Picchu", country: "Peru"},
+      %SevenWonders{name: "Taj Mahal", country: "India"},
+      %SevenWonders{name: "Christ the Reedemer", country: "Brazil"},
+      %SevenWonders{name: "Colosseum", country: "Italy"},
+      %SevenWonders{name: "The Great Wall of CHina", country: "China"}
+    ]
+  end
+
+  # This is a List and thw type of key that we defined. And it should return oK
+  @spec print_names([t()]) :: :ok
+  def print_names(wonders) do
+    # wonders |> Enum.each(fn %{name: name} -> IO.puts (name) end)   #Here we can also use the pipeline operator to pass wonders into a function
+    # wonders will be default input for the function and it will be transfromed  by ou function
+    Enum.each(wonders, fn %{name: name} -> IO.puts(name) end)
+  end
+
+  @spec filter_by_country([t()], String.t()) :: [t()]
+  def filter_by_country(wonders, country) do
+    # Using filter function to filter the wonder and country from an input of a  countray name
+    wonders |> Enum.filter(fn %{country: country_name} -> country_name == country end)
+  end
+
+  # ---------------------- PART 2 ----------------- 
+
+  # Sorting out by the length of the characters in coyntry's name. In Ascending Order
+  def sort_by_country_length(wonders) do
+    wonders |> Enum.sort(fn x, y -> String.length(x.country) < String.length(y.country) end)
+  end
+
+  # Country list using reduce function
+  def name_country_list(wonders) do
+    wonders |> Enum.reduce([], fn wonder, acc -> [[wonder.name, wonder.country] | acc] end)
+  end
+
+  # Country list using reduce function. 
+  def name_country_keyword_list(wonders) do
+    # returning a turple  "wonder: country"
+    wonders
+    |> Enum.reduce([], fn wonder, acc -> [{String.to_atom(wonder.name), wonder.country} | acc] end)
+  end
+end
+
+# here i am basically assigning variable all_wonders to function All that is in SevenWOnders
+all_wonders = SevenWonders.all()
+```
+
+This function below calls print_names in the module Seven Wonders, and it is being passed all_wonders
+
+```elixir
+# Now I can  print names only
+SevenWonders.print_names(all_wonders)
+```
+
+This function below calls filter_by_a_country that is in SevenWonders module, and it is being passed all_wonders and country name
+
+```elixir
+# filtering out a wonder and a country
+SevenWonders.filter_by_country(all_wonders, "Mexico")
+```
+
+Sorting by the lenght of the country's name
+
+```elixir
+SevenWonders.sort_by_country_length(all_wonders)
+```
+
+Reducing to the format: Wonder, Name of the country
+
+```elixir
+SevenWonders.name_country_list(all_wonders)
+```
+
+Returning a turple using a reduce function:
+
+```elixir
+SevenWonders.name_country_keyword_list(all_wonders)
+```
+
+We can use Map as shorter verion to retun names of wonders:
+
+```elixir
+# reference to an anonymous function, and this function is going to return the name back
+Enum.map(all_wonders, & &1.name)
+```
+
+For Comprehenesion we can use for to extract name
+
+```elixir
+for %{name: name} <- all_wonders, do: name
+```
+
+#### 2. Expense Manager
+
+```elixir
+defmodule Expense do
+  alias Expense
+
+  defstruct(
+    title: "",
+    date: nil,
+    amount: 0,
+    store: ""
+  )
+
+  @type t :: %Expense{
+          title: String.t(),
+          date: Date.t() | nil,
+          amount: number(),
+          store: String.t()
+        }
+
+  @spec sample() :: [t()]
+  def sample do
+    [
+      %Expense{title: "iphone", date: ~D[2022-09-12], amount: 6000, store: "Apple"},
+      %Expense{title: "Clothes", date: ~D[2022-09-13], amount: 5000, store: "Markham"},
+      %Expense{title: "Gadgets", date: ~D[2022-09-14], amount: 4000, store: "Game"}
+    ]
+  end
+
+  # --------- CALCULATE THE TOTAL AMOUNT SPENT ---------
+  @spec total([t]) :: number()
+  def total(expense) do
+    expense |> Enum.reduce(0, fn expense, acc -> expense.amount + acc end)
+  end
+
+  # ----------  SORT BY DATE -------------
+  def sort_by_date(expense) do
+    expense |> Enum.sort_by(& &1.date)
+  end
+
+  # --------------ADDING AN EXPENSE ON A  SAMPLE LIST -------
+
+  @spec add_expense(t) :: [t()]
+  def add_expense(%Expense{} = expense) do
+    [expense | sample]
+  end
+
+  # ---------- UPDATING AN EXPSENSE THAT IS ON A SAMPLE LIST -----
+
+  def update_amount(title, amount) do
+    # first: you want to filter the item you want to update
+    # Second: you want create a new expense with an updated amount. * Remember all the data types in Elixir are IMMUTABLW
+    # third: you want to add this new update expenses onto our list and take out the old one.
+    # filters
+    [item] = Enum.filter(sample(), fn %{title: expense_title} -> expense_title == title end)
+    # creates a new item
+    new_item = %{item | amount: amount}
+    # append new item to sample list |> delete old item
+    [new_item | sample() |> List.delete(item)]
+  end
+end
+
+sample = Expense.sample()
+```
+
+A funtion to calculate the total amount spens on all items:
+
+```elixir
+Expense.total(sample)
+```
+
+Sort expense by the date:
+
+```elixir
+Expense.sort_by_date(sample)
+```
+
+Adding an Expense on a list of Sample:
+
+```elixir
+expense = %Expense{title: "Stationary", date: ~D[2022-09-15], amount: 3000, store: "CNN"}
+# now we have a new expsense, we must now add it to the list
+# adding Stationary to Sample
+Expense.add_expense(expense)
+```
+
+#### 3. Statistics - Project - Part 1 (Population Mean and Sample Mean)
+
+Sample Mean: Average of a subset of data points (sample) taken from a larger population.
+
+Example: Sample of 10 students' math test scores: [85, 92, 78, 88, 95, 87, 90, 82, 89, 91]. Sample Mean = 88.7 (calculated by summing and dividing by the number of students).
+
+Population Mean: Average of all data points in an entire population.
+
+Example: Weights of apples in an orchard: [150g, 140g, 160g, 130g, 170g]. Population Mean = 150 (calculated by summing and dividing by the total number of apples).
+
+```elixir
+# This module is responsible from printing error messages in cases wer wrong data type is the input
+defmodule Errors do
+  @spec invalid_data_type() :: {atom(), String.t()}
+  def invalid_data_type(), do: {:error, "Invalid data type"}
+end
+```
+
+```elixir
+# This module validates the data type of the input
+defmodule Validators do
+  alias Errors
+  @spec validate_num_list([number()]) :: {boolean, [number()]} | {atom(), String.t()}
+  def validate_num_list(nums) when is_list(nums) do
+    {Enum.all?(nums, fn el -> is_number(el) end), nums}
+  end
+
+  def validate_num_list(_), do: Errors.invalid_data_type()
+end
+```
+
+```elixir
+defmodule Stats do
+  alias Errors
+  alias Validators
+  #  alias Stats.{Errors, Validators}
+
+  # -----------------------POPULATION MEAN------------------------------------------
+  @spec population_mean([number()]) :: number() | {atom(), String.t()}
+  def population_mean([]), do: Errors.invalid_data_type()
+
+  def population_mean(nums) when is_list(nums) do
+    nums
+    |> Validators.validate_num_list()
+    |> calc_population_mean()
+  end
+
+  # def population_mean(_), do: Errors.invalid_data_type()
+
+  # -----------------------SAMPLE MEAN------------------------------------------------
+  @spec sample_mean([number()]) :: number() | {atom(), String.t()}
+  def sample_mean(nums), do: population_mean(nums)
+
+  # --------------  CALCULATE POPULATION MEAN ----------
+  defp calc_population_mean({false, _}), do: Errors.invalid_data_type()
+
+  defp calc_population_mean({true, nums}) do
+    nums
+    |> Enum.sum()
+    |> mean(Enum.count(nums))
+  end
+
+  # ----------------- MEAN ----------
+
+  defp mean(sigma, count), do: sigma / count
+end
+
+# Stats.population_mean([10,20,30])
+Stats.sample_mean([10, 20, 30])
+```
+
+#### Statistics - Project - Part 2 (Meadian & Mode)
+
+Median - The median of a list of numbers is calculated by sorting the list in ascending order and then finding the middle value. If the list has an odd number of elements, the median is the middle value. If the list has an even number of elements, the median is the average of the two middle values.
+
+```elixir
+defmodule Med do
+  def median(numbers) when is_list(numbers) and length(numbers) > 0 do
+    # Sort the input list in ascending order
+    sorted_numbers = Enum.sort(numbers)
+
+    # Calculate the index of the middle element in the sorted list
+    middle_idx = div(length(sorted_numbers), 2)
+
+    # Check if the list has an even number of elements
+    if rem(length(sorted_numbers), 2) == 0 do
+      # If even, calculate the average of the two middle values
+      (List.first(Enum.drop(sorted_numbers, middle_idx - 1)) +
+         List.first(Enum.drop(sorted_numbers, middle_idx))) / 2.0
+    else
+      # If odd, return the middle value directly
+      List.first(Enum.drop(sorted_numbers, middle_idx))
+    end
+  end
+
+  # Define a fallback function to handle invalid inputs (empty list)
+  def median(_), do: {:error, "Invalid input. The list must contain at least one number."}
+end
+
+# Test the median function
+data = [5, 3, 1, 4, 2]
+
+# Print the input data
+IO.puts("Data: #{inspect(data)}")
+
+# Calculate and print the median of the data using the MathUtils module
+IO.puts("Median: #{Med.median(data)}")
+```
+
+Mode refers to the value that appears most frequently in a list of elements.
+
+Example: Let's say we have a list of numbers in Elixir: [3, 5, 2, 5, 1, 5, 4]. The mode of this list is 5 because it appears three times, which is more frequent than any other value in the list. To find the mode in Elixir, we would need to write a function to determine the value with the highest frequency in the list.
+
+```elixir
+defmodule Mode do
+  def mode(numbers) when is_list(numbers) and length(numbers) > 0 do
+    frequencies = Enum.frequencies(numbers)
+    Enum.max_by(frequencies, fn {_, frequency} -> frequency end) |> elem(0)
+  end
+
+  def mode(_), do: {:error, "Invalid input. The list must contain at least one number."}
+end
+
+# Test the mode function
+data = [3, 5, 2, 5, 1, 5, 4]
+IO.inspect("Data: #{data}")
+IO.puts("Mode: #{Mode.mode(data)}")
+```
+
+### Learner  Checkpoint
+
+If the Concept of Elixir and functional Programming is still confusing to you there are more resources available, more notebooks have been attached this [Repository](https://github.com/ShawnMumbo/Livebook-Project) for practice Under the File Extra Codes.livemd.
+
+From the above tutorial/demonstration, a couple of Livebook features have been utilized, these include:
+
+1. Markdown Support - Livebook supports markdown functionalities that have been in turn used to write up the descriptive parts of this notebook, click on the edit icon to view the RAW format.
+
+2. Inline Documentation and Code Formatting- Besides accepting Markdown, in the code editior it is possible to implement documentation using comment.
+
+3. Collaboration with multiple users, this can either be by a thirdparty software like Github that does version control or directly via Livebook as shown [here](https://youtu.be/DA_4s972JMI?t=487), Jose Valim the ceator of Elixir tries to demo this too [here](https://youtu.be/EhSNXWkji6o?list=PLezCyUgorHVYR-M80A8rIx0fwy4E61RBE&t=531).
+
+It is important to note that this is only collaborative when running on the same notebook the Livebook  teams feature is still and development at the time of writing this document and hopefully it is implemented soon
+
+Once comfortable with the sections covered in this Notebook kindly move to the V1.2 for Intermediate and Senior Devepolopers.

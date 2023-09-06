@@ -1,15 +1,42 @@
-# Livebook Tutorial
+# Livebook Tutorial V1.2 (Intermediate-Senior)
 
-## Functional Programming
+## Intermediate
+
+In the Elixir Schools Website, it describes what is expected from an Intermediate Elixir Developer, these can be found [here](https://elixirschool.com/en/lessons/intermediate) and we will demonstrate them here in Livebook. If you are comfortable with these concepts kindly move to the Senior Section
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Elixir Core Features
+
+#### Functional Programming
 
 Functional programming is a paradigm of building computer programs using expressions and functions without mutating state and data. Meaning in Elixir data is immutable.
 
-## Scalability
+This was well described in the first part of the tutorial, Livebook Tutorial v1.1(Juniors)
+
+<!-- livebook:{"break_markdown":true} -->
+
+#### Error Handling
+
+This might not be considered as one of the core Elixir features but it is very important to TAUSPACE as a telecommunications company it is important for us not to avoid error, but to try and handle them gracefully so that other systems may not be affected by this error, this works hand in hand with Fault tolerance described below. For more in-depth info about Elixir and Error Handling [Click Here](https://elixirschool.com/en/lessons/intermediate/error_handling)
+
+```elixir
+# Here we try and create an error without handling it.
+raise "Oh no!"
+```
+
+```elixir
+# Here we handle the error gracefully.
+try do
+  raise "Oh no!"
+rescue
+  e in RuntimeError -> IO.puts("An error occurred: " <> e.message)
+end
+```
+
+#### Scalability
 
 An application program would be scalable if it could be moved from a smaller to a larger operating system and take full advantage of the larger operating system in terms of performance (user response time and so forth) and the larger number of users that could be handled.
-
-All Elixir code runs inside lightweight threads of execution (called processes) that are isolated and exchange information via messages
-Due to their lightweight nature, you can run hundreds of thousands of processes concurrently in the same machine, using all machine resources efficiently (vertical scaling). Processes may also communicate with other processes running on different machines to coordinate work across multiple nodes (horizontal scaling).
 
 ```elixir
 current_process = self()
@@ -25,6 +52,9 @@ receive do
 end
 ```
 
+All Elixir code runs inside lightweight threads of execution (called processes) that are isolated and exchange information via messages
+Due to their lightweight nature, you can run hundreds of thousands of processes concurrently in the same machine, using all machine resources efficiently (vertical scaling). Processes may also communicate with other processes running on different machines to coordinate work across multiple nodes (horizontal scaling).
+
 For further below is a code that spawns up one million processes and gives the process Identifyers (PID) and is done so in about 20 seconds.
 
 ```elixir
@@ -33,15 +63,18 @@ for _ <- 1..1_000_000 do
 end
 ```
 
-## Concurrency
-
 Test Github Version Control
 
 <!-- livebook:{"break_markdown":true} -->
 
-We meet our first intergration and dependancy  using Livebook called Kino, this can be used to trace processes as shown below.
+#### Concurrency
+
+One of the selling points of Elixir is its support for concurrency. Thanks to the Erlang VM (BEAM), concurrency in Elixir is easier than expected. The concurrency model relies on Actors, a contained process that communicates with other processes through message passing. For the nitty gritties of Concurrency [Click Here](https://elixirschool.com/en/lessons/intermediate/concurrency)
+
+We meet our first intergration and dependancy  using Livebook called Kino, this can be used to trace processes as shown below to give a more pictorial view.
 
 ```elixir
+# Installing dependancies on Livebook Like it is done with deps on Mix apps
 Mix.install([
   {:kino, "~> 0.9.1"}
 ])
@@ -58,7 +91,90 @@ Kino.Process.render_seq_trace(fn ->
 end)
 ```
 
-## Fault Tolerance
+##### Process Monitoring
+
+```elixir
+defmodule Example do
+  def explode, do: exit(:kaboom)
+
+  def run do
+    spawn_monitor(Example, :explode, [])
+
+    receive do
+      {:DOWN, _ref, :process, _from_pid, reason} -> IO.puts("Exit reason: #{reason}")
+    end
+  end
+end
+
+Example.run()
+```
+
+##### Process Linking
+
+```elixir
+defmodule Examplez do
+  def explode, do: exit(:kaboom)
+end
+
+spawn(Examplez, :explode, [])
+```
+
+To terminate the above process remove the harshtag/Pound-Sign and click execute you should see on the bottom right it will display "Aborted" instead of "Evaluated" and a pop up notification will show saying *Evaluation process terminated*
+
+```elixir
+# Remove the #-sign execute see the difference then put it back. 
+# spawn_link(Examplez, :explode, [])
+```
+
+##### Message Passing
+
+```elixir
+defmodule Examples do
+  def listen do
+    receive do
+      {:ok, "hello"} -> IO.puts("World")
+    end
+
+    listen()
+  end
+end
+
+pid = spawn(Examples, :listen, [])
+```
+
+```elixir
+send(pid, {:ok, "hello"})
+```
+
+```elixir
+send(pid, :ok)
+```
+
+##### Agents
+
+```elixir
+{:ok, agent} = Agent.start_link(fn -> [1, 2, 3] end)
+```
+
+```elixir
+Agent.update(agent, fn state -> state ++ [4, 5] end)
+```
+
+```elixir
+Agent.get(agent, & &1)
+```
+
+When we name an Agent we can refer to it by that instead of its PID:
+
+```elixir
+Agent.start_link(fn -> [1, 2, 3] end, name: Numbers)
+```
+
+```elixir
+Agent.get(Numbers, & &1)
+```
+
+#### Fault Tolerance
 
 Elixir uses supervisor to monitor the child processes. If a child process crashes, supervisor will restart it.
 A supervisor is a process which supervises other processes, which we refer to as child processes. Supervisors are used to build a hierarchical process structure called a supervision tree. Supervision trees provide fault-tolerance and encapsulate how our applications start and shutdown.
@@ -82,18 +198,33 @@ Kino.Process.render_seq_trace(fn ->
 end)
 ```
 
-## Erlang Compatability
+#### Erlang Compatability/ Interoperability
 
-When we go to the link;
+When we go to the link for the [Livebook Repo]( https://github.com/livebook-dev/livebook/blob/main/lib/livebook/notebook/learn/intro_to_livebook.livemd );
 
-https://github.com/livebook-dev/livebook/blob/main/lib/livebook/notebook/learn/intro_to_livebook.livemd
+Under erlang support, we see that Livebook also allows developers to write Erlang code. This means you can call both Elixir and Erlang functions on the same Notebook and they will work hand on the same notebook without having to do any code format changes, I will demonstrate this by calling a simple erlang module called rand, more information on this can be found on the [Youtube Video here](https://www.youtube.com/watch?v=mGhtrWgRljU&ab_channel=Elixir%2CErlangandtheBEAMwithAdolfoNeto)
 
-Under erlang support,
-
-Livebook also allows developers to write Erlang code. To do so, click on the submenu option on the right side of the "Elixir" cell button and choose Erlang.
+Elixir Schools website shows you the various differences between Erlang and Elixir and that can be seen [here](https://elixirschool.com/en/lessons/intermediate/erlang).
 
 ```elixir
-[io:format("~ts", [Cat]) || Cat <- Cats].
+:rand.uniform(100)
 ```
 
-## OTP DISTRIBUTION
+```elixir
+defmodule SimpleQueue.Application do
+  use Application
+
+  def start(_type, _args) do
+    children = [
+      {SimpleQueue, [1, 2, 3]}
+    ]
+
+    opts = [strategy: :one_for_one, name: SimpleQueue.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+```
+
+#### OTP
+
+OTP stands for Open Telecom Platform. It is based on Erlang and contains a huge set of libraries from BEAM that follow system design principles. In the core of OTP, we have processes which make Elixir very efficient
