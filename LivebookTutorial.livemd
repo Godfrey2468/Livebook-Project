@@ -2,7 +2,34 @@
 
 ## Intermediate
 
-In the Elixir Schools Website, it describes what is expected from an Intermediate Elixir Developer, these can be found [here](https://elixirschool.com/en/lessons/intermediate) and we will demonstrate them here in Livebook. If you are comfortable with these concepts kindly move to the Senior Section
+In the Elixir Schools Website, it describes what is expected from an Intermediate Elixir Developer, these can be found [here](https://elixirschool.com/en/lessons/intermediate) and we will demonstrate them here in Livebook.
+
+These will also include vaious interesting features of Livebook that make it so powerful and some great intergrations that help with data visualization, processing and intergrations such as database. We will include intergrations such as:
+
+1. Kino
+2. Explorer
+3. Mermaid
+4. VegaLite
+
+In depth information on these notebooks have been created and available for reference from the learn section of Livebook. The notebooks that will be of interest to us include;
+
+1. Exploring built-in Kinos.
+2. Runtime introspection with Mermaid and Vegalite -  this is of great importance to us as a telecoms that runs millions of processes it's easier to visualize the process.
+3. Data transform with Explorer.
+4. Automating with Smart Cells.
+
+If you are comfortable with these concepts kindly move to the Senior Section or browse through to see how the integreations work.
+
+#### Learning Map for Intermediate Devs
+
+```mermaid
+graph TD;
+    INTERMEDIATE-->Elixir_Core_Features;
+     Elixir_Core_Features-->Elixir_School_Intermediate;
+     Elixir_School_Intermediate-->Kino_Intergration;
+    Kino_Intergration-->Kino_VegaLite_Intergration;
+    Kino_VegaLite_Intergration-->To_Senior;
+```
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -71,18 +98,27 @@ Test Github Version Control
 
 One of the selling points of Elixir is its support for concurrency. Thanks to the Erlang VM (BEAM), concurrency in Elixir is easier than expected. The concurrency model relies on Actors, a contained process that communicates with other processes through message passing. For the nitty gritties of Concurrency [Click Here](https://elixirschool.com/en/lessons/intermediate/concurrency)
 
-We meet our first intergration and dependancy  using Livebook called Kino, this can be used to trace processes as shown below to give a more pictorial view.
+We meet intergrations and dependancies again, if you had no gone through the V1.1 Tutorial this might be a new concept but quite easy to learn. Here we are using Livebook called Kino, this can be used to trace processes as shown below to give a more pictorial view.
+
+***Please note for convenience sake we list and install all the dependancies we will use at once, you can install them one after the other on different cell blocks, make sure you Disconnect your node first on the Runtime Settings on your far right everytime you want to add a new dependancy, otherwise you will get a mix runtime error***
 
 ```elixir
-# Installing dependancies on Livebook Like it is done with deps on Mix apps
 Mix.install([
-  {:kino, "~> 0.9.1"}
+  {:postgrex, "~> 0.17"},
+  {:kino_explorer, "~> 0.1.10"},
+  {:kino, "~> 0.10.0"},
+  {:kino_db, "~> 0.2.2"},
+  {:kino_maplibre, "~> 0.1.9"},
+  {:kino_vega_lite, "~> 0.1.9"}
 ])
 ```
 
+Kino tracing the process automatically by wraping the code in the Kino.Process function with no limit of number processes, this saves a lot of hands-on time that would have otherwise taken so long to manually draw by hand can now be rendered in a matter of seconds.
+
 ```elixir
 Kino.Process.render_seq_trace(fn ->
-  1..4
+  # change the number of processes here to see how flexible and fast it is.
+  1..5
   |> Task.async_stream(
     fn _ -> Process.sleep(Enum.random(100..300)) end,
     max_concurrency: 4
@@ -210,6 +246,32 @@ Elixir Schools website shows you the various differences between Erlang and Elix
 :rand.uniform(100)
 ```
 
+Here we use erlang to check our memory usage at runtime.
+
+```elixir
+save = :erlang.memory()
+```
+
+We now introduce another intergration called VegaLite, this helps us draw a graph from the memory usage data provided above.
+
+To view spikes in the graph run codes that spike up your memory usage.
+
+```elixir
+alias VegaLite, as: Vl
+
+memory_plot =
+  Vl.new(width: 600, height: 400, padding: 20)
+  |> Vl.repeat(
+    [layer: ["total", "processes", "atom", "binary", "code", "ets"]],
+    Vl.new()
+    |> Vl.mark(:line)
+    |> Vl.encode_field(:x, "iter", type: :quantitative, title: "Measurement")
+    |> Vl.encode_repeat(:y, :layer, type: :quantitative, title: "Memory usage (MB)")
+    |> Vl.encode(:color, datum: [repeat: :layer], type: :nominal)
+  )
+  |> Kino.VegaLite.new()
+```
+
 ```elixir
 defmodule SimpleQueue.Application do
   use Application
@@ -225,6 +287,394 @@ defmodule SimpleQueue.Application do
 end
 ```
 
-#### OTP
+## Seniors
+
+As we advance to the Senior Developers section we will start with OTP's if you are comfortable with this section kindly move ahead to the Advanced Projects section.
+
+### OTP
 
 OTP stands for Open Telecom Platform. It is based on Erlang and contains a huge set of libraries from BEAM that follow system design principles. In the core of OTP, we have processes which make Elixir very efficient
+
+Through OTP we handle processes and genservers, if you are new to this concept, [here](https://www.youtube.com/watch?v=CJT8wPnmjTM&ab_channel=FullStackTalks) is a video detailing the concept 
+ in a nutshell.
+ If complete mastery is desired we can find a full course on  [Mastering Concurrency by Octallium](https://www.youtube.com/playlist?list=PLYwEjF73cpLk_FTlYajjfdSBb-VTu-Ysf)
+ The two  Repositories he uses in the Videos are [Kv_umbrella](https://github.com/octallium/kv_umbrella) and [Kv_store](https://github.com/octallium/kv_store). Otherwise it will be a quick overview here just as as a way to show the Powers of Livebook.
+
+We will cover three kinds of OTP's namely:
+
+1. [OTP Concurrency](https://elixirschool.com/en/lessons/advanced/otp_concurrency)
+2. [OTP Supervisors](https://elixirschool.com/en/lessons/advanced/otp_supervisors)
+3. [OTP Distribution](https://elixirschool.com/en/lessons/advanced/otp_distribution)
+
+#### OTP Concurrency
+
+```elixir
+defmodule SimpleQueues.Application do
+  use Application
+
+  def start(_type, _args) do
+    children = [SimpleQueues]
+    opts = [strategy: :one_for_one, name: SimpleQueues.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+```
+
+```elixir
+defmodule SimpleQueued.Application do
+  use Application
+
+  def start(_type, _args) do
+    children = [{SimpleQueued, [1, 2, 3]}]
+    opts = [strategy: :one_for_one, name: SimpleQueued.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+```
+
+```elixir
+options = [name: SimpleQueues.Supervisor, strategy: :one_for_one]
+```
+
+```elixir
+DynamicSupervisor.start_link(options)
+```
+
+```elixir
+defmodule SupportSystem.TicketWorker do
+  use GenServer
+
+  def start_link(ticket) do
+    GenServer.start_link(__MODULE__, ticket)
+  end
+
+  def init(ticket) do
+    {:ok, ticket}
+  end
+
+  def handle_call(:assign_agent, _from, ticket) do
+    assigned_ticket = Map.put(ticket, :status, :assigned)
+    {:reply, :ok, assigned_ticket}
+  end
+
+  def handle_call(:resolve, _from, ticket) do
+    resolved_ticket = Map.put(ticket, :status, :resolved)
+    {:reply, :ok, resolved_ticket}
+  end
+end
+```
+
+```elixir
+defmodule SupportSystem.TicketSupervisor do
+  use DynamicSupervisor
+
+  def start_link(options \\ []) do
+    DynamicSupervisor.start_link(__MODULE__, options, name: __MODULE__)
+  end
+
+  def init(_options) do
+    DynamicSupervisor.init(strategy: :one_for_one)
+  end
+
+  def create_ticket(ticket_details) do
+    spec = {SupportSystem.TicketWorker, ticket_details}
+    DynamicSupervisor.start_child(__MODULE__, spec)
+  end
+end
+```
+
+```elixir
+defmodule SupportSystem.Application do
+  use Application
+
+  def start(_type, _args) do
+    children = [
+      SupportSystem.TicketSupervisor
+    ]
+
+    opts = [strategy: :one_for_one, name: SupportSystem.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+```
+
+```elixir
+ticket_details = %{id: 1, description: "Login issue", status: :open}
+# {:ok, pid} = SupportSystem.TicketSupervisor.create_ticket(ticket_details)
+```
+
+#### OTP Supervisors
+
+Supervisors are processes that supervisor other processes and restart them in case something goes wrong. We can start our own supervisor like this:
+
+```elixir
+{:ok, supervisor} =
+  Supervisor.start_link(
+    [
+      {Task, fn -> Process.sleep(:infinity) end},
+      {Agent, fn -> [] end}
+    ],
+    strategy: :one_for_one
+  )
+
+Kino.Process.render_sup_tree(supervisor)
+```
+
+```elixir
+Kino.Process.render_app_tree(:kino)
+```
+
+```elixir
+Kino.Process.render_app_tree(:elixir)
+```
+
+#### OTP Distribution
+
+Go to Distributed portals game under the learn section
+This is a Notebook OTP Distribution that uses Elixir's ditributive features to build a game
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Genservers
+
+Another great feature of Livebook is the ability to run multiple Genservers, both synchronous and Asynchronous on the same notebook as long as they have different function names without needing multiples terminals.
+
+[Avinash's Lesson on Genservers](https://github.com/dotaviTS/concurrency/blob/main/concurrencyday2.md) We implement the simple counter.
+
+```elixir
+defmodule Counter do
+  use GenServer
+
+  # Client API
+  def start_link(initial_count) do
+    GenServer.start_link(__MODULE__, initial_count)
+  end
+
+  def increment(pid) do
+    GenServer.cast(pid, :increment)
+  end
+
+  def value(pid) do
+    GenServer.call(pid, :value)
+  end
+
+  # Server Callbacks
+  def handle_cast(:increment, count) do
+    {:noreply, count + 1}
+  end
+
+  def handle_call(:value, _from, count) do
+    {:reply, count, count}
+  end
+end
+
+# Usage
+```
+
+```elixir
+{:ok, pid} = Counter.start_link(0)
+```
+
+```elixir
+Counter.increment(pid)
+```
+
+```elixir
+# Outputs 1
+IO.puts(Counter.value(pid))
+```
+
+We will implement the Genservers listed in the [Elixir Schools here.](https://elixirschool.com/en/lessons/advanced/otp_concurrency) under Genservers
+
+#### Synchronous Functions
+
+```elixir
+defmodule SimpleQueue do
+  use GenServer
+
+  ### GenServer API
+
+  @doc """
+  GenServer.init/1 callback
+  """
+  def init(state), do: {:ok, state}
+
+  @doc """
+  GenServer.handle_call/3 callback
+  """
+  def handle_call(:dequeue, _from, [value | state]) do
+    {:reply, value, state}
+  end
+
+  def handle_call(:dequeue, _from, []), do: {:reply, nil, []}
+
+  def handle_call(:queue, _from, state), do: {:reply, state, state}
+
+  ### Client API / Helper functions
+
+  def start_link(state \\ []) do
+    GenServer.start_link(__MODULE__, state, name: __MODULE__)
+  end
+
+  def queue, do: GenServer.call(__MODULE__, :queue)
+  def dequeue, do: GenServer.call(__MODULE__, :dequeue)
+end
+```
+
+Let’s start our SimpleQueue and test out our new dequeue functionality:
+
+```elixir
+SimpleQueue.start_link([1, 2, 3])
+```
+
+```elixir
+SimpleQueue.dequeue()
+```
+
+```elixir
+SimpleQueue.dequeue()
+```
+
+```elixir
+SimpleQueue.queue()
+```
+
+#### Asynchronous Functions
+
+```elixir
+defmodule SimpleQueue2 do
+  use GenServer
+
+  ### GenServer API
+
+  @doc """
+  GenServer.init/1 callback
+  """
+  def init(state), do: {:ok, state}
+
+  @doc """
+  GenServer.handle_call/3 callback
+  """
+  def handle_call(:dequeue, _from, [value | state]) do
+    {:reply, value, state}
+  end
+
+  def handle_call(:dequeue, _from, []), do: {:reply, nil, []}
+
+  def handle_call(:queue, _from, state), do: {:reply, state, state}
+
+  @doc """
+  GenServer.handle_cast/2 callback
+  """
+  def handle_cast({:enqueue, value}, state) do
+    {:noreply, state ++ [value]}
+  end
+
+  ### Client API / Helper functions
+
+  def start_link(state \\ []) do
+    GenServer.start_link(__MODULE__, state, name: __MODULE__)
+  end
+
+  def queue, do: GenServer.call(__MODULE__, :queue)
+  def enqueue(value), do: GenServer.cast(__MODULE__, {:enqueue, value})
+  def dequeue, do: GenServer.call(__MODULE__, :dequeue)
+end
+```
+
+```elixir
+SimpleQueue2.start_link([1, 2, 3])
+```
+
+```elixir
+SimpleQueue2.queue()
+```
+
+```elixir
+SimpleQueue2.enqueue(20)
+```
+
+```elixir
+SimpleQueue2.queue()
+```
+
+## Advanced Section
+
+### Connecting Livebook To Database
+
+In this demonstration we use Kino_DB and PostgreSQL to link Livebook to a database in the localhost machine.
+This is done by the help of smart cells that we used earlier in the V1.1 tutorial to dispay and manipulate tabular data from the normal cell block. If this concept is foreign to you [here is the help you need](https://news.livebook.dev/v0.6-automate-and-learn-with-smart-cells-mxJJe)
+
+For this to work the details have to be in line with your postgres detail in terms of username and password. The database us the database you would like to use under postgress, for this demonstration I use TSBank created by Avinash.
+
+You can connect to different types of databases you just need to install the correct dependancies and use the correct login database details.
+
+<!-- livebook:{"attrs":{"database":"ts_bank_dev","hostname":"localhost","password_secret":"POSTGRESS","port":5432,"type":"postgres","use_ipv6":false,"use_ssl":false,"username":"postgres","variable":"conn"},"chunks":null,"kind":"Elixir.KinoDB.ConnectionCell","livebook_object":"smart_cell"} -->
+
+```elixir
+opts = [
+  hostname: "localhost",
+  port: 5432,
+  username: "postgres",
+  password: System.fetch_env!("LB_POSTGRESS"),
+  database: "ts_bank_dev"
+]
+
+{:ok, conn} = Kino.start_child({Postgrex, opts})
+```
+
+I will now run a simple PostgreSQL query to prove that the Database is connected.
+
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn"},"data_frame_alias":"Elixir.Explorer.DataFrame","query":"select * from user;","result_variable":"result","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+
+```elixir
+result = Postgrex.query!(conn, "select * from user;", [])
+```
+
+We will now connect to a second database on our postgress and show how easy it is to view multiple databases on Livebook under the same notebook and even query both at runtime. Normal PostgreSQL Queries apply just pick on the SQL query under the smart cell to place your query.
+
+<!-- livebook:{"attrs":{"database":"discuss_dev","hostname":"localhost","password_secret":"POSTGRESS","port":5432,"type":"postgres","use_ipv6":false,"use_ssl":false,"username":"postgres","variable":"conn2"},"chunks":null,"kind":"Elixir.KinoDB.ConnectionCell","livebook_object":"smart_cell"} -->
+
+```elixir
+opts = [
+  hostname: "localhost",
+  port: 5432,
+  username: "postgres",
+  password: System.fetch_env!("LB_POSTGRESS"),
+  database: "discuss_dev"
+]
+
+{:ok, conn2} = Kino.start_child({Postgrex, opts})
+```
+
+Livebook can also sort the data on all columns in order of ascending and descending order without having to manually query the sort, you can also limit the amount of data you want to view if there only a few rows are needed to be displayed
+
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn2"},"data_frame_alias":"Elixir.Explorer.DataFrame","query":"select * from topics limit 100","result_variable":"result2","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+
+```elixir
+result2 = Postgrex.query!(conn2, "select * from topics limit 100", [])
+```
+
+<!-- livebook:{"attrs":{"cache_query":true,"connection":{"type":"postgres","variable":"conn2"},"data_frame_alias":"Elixir.Explorer.DataFrame","query":"select * from topics limit 4","result_variable":"result3","timeout":null},"chunks":null,"kind":"Elixir.KinoDB.SQLCell","livebook_object":"smart_cell"} -->
+
+```elixir
+result3 = Postgrex.query!(conn2, "select * from topics limit 4", [])
+```
+
+If you would like to try this on AWS Athena you can find a detailed tutorial [here](https://news.livebook.dev/date/2022/9)
+
+And if you use Google BigQuery you can find help on the setup [here](https://news.livebook.dev/date/2022/9)
+
+For the rest of the databases the same steps of setup apply and it should work.
+
+The whole concept of Kino and all interesting intergrations brought by it have only been touched on, [here](https://www.youtube.com/watch?v=SMzRml_J8fc&ab_channel=ElixirZone) is a video that goes really in depth on using various Kinos available and the repository to the livemd's used can be found [here](https://github.com/JamesLavin/ElixirZone/tree/main/Elixir/LiveBooks)
+
+The ability of Livebook being able to handle all these features and be called Meta-Programmability and Jos`e Valim talks about it [here](https://www.youtube.com/watch?v=EhSNXWkji6o&ab_channel=Livebook)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Connecting Livebook to Phoenix Liveview
+
+In order to do this we have to change the runtime settings and use a cookie and node configuration. Due to this we will carry out this part on a new Notebook to avoid messing up all the good work we did uin the other parts of the Notebook.
+
+<!-- livebook:{"offset":21822,"stamp":{"token":"QTEyOEdDTQ.vmAFJsnGOxqG_pc7dHuPYLbLs_QOg52I_O1xLktSP_ZlcuB0YZjkL9M6gqw.hp1tYpgNPLSBENyB.oJEo5rvuz7LhWFdXZD5mhlFV9bQBiVTqb86juvtP7sDauFCitBzrqyUILcFp.R6TKZuSgK2PnWFAcemGybQ","version":1}} -->

@@ -4,11 +4,32 @@
 
 ### What is Elixir?
 
-* The [Elixir-Lang website](https://elixir-lang.org/getting-started/introduction.html) that explains what is Elixir and its core features
-
-* The [Elixir-Hex Docs](https://hexdocs.pm/elixir/Kernel.html) Documentation that explains the data structures of Elixir,  Modules, functions and everything there is to know about Elixir
-
+* The [Elixir-Lang website](https://elixir-lang.org/getting-started/introduction.html) that explains what is Elixir and its core features, please only read the **getting started section only.**
+* The [Elixir-Hex Docs](https://hexdocs.pm/elixir/Kernel.html) Documentation that explains the data structures of Elixir,  Modules, functions and everything there is to know about Elixir. For the Junior developers if the first website is not enough or would like a different read, only read the following sections **Basic Types,Collections and Enurables,IO & System..**
 * The [Elxir School Websites](https://elixirschool.com/en/lessons/basics) under basics describes perfectly what a Junior Elixir developer should be comfortable with, have a look at it anytime things seem confusing or out of scope.
+
+<!-- livebook:{"break_markdown":true} -->
+
+#### Learning Map for Junior Devs
+
+This Learning Maps Guides three categories of Junior Developers, starting from the route on the far left:
+
+1. For those who Know Elixir and Livebook and just need some practice
+2. For those who know Elixir but new to Livebook
+3. For those who both Elixir and Livebook are new concepts
+
+```mermaid
+graph TD;
+    JUNIOR-->What_is_Elixir;
+    What_is_Elixir-->What_is_Livebook;
+     What_is_Elixir-->Elixir/Hex_Docs;
+     Elixir/Hex_Docs-->Basic_Types,Collections_and_Enurables,IO_&_System;
+     Basic_Types,Collections_and_Enurables,IO_&_System-->What_is_Livebook;
+     JUNIOR-->Freecode_Camp;
+    What_is_Livebook-->Freecode_Camp;
+     Freecode_Camp-->Three_Projects;
+    Three_Projects-->To_Intermediate;
+```
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -27,17 +48,20 @@ This is a well detailed [Youtube Video](https://www.youtube.com/watch?v=IiIgm_ya
 1. Introduction to Functional Programming
 2. Introduction to Elixir
 3. Installation & Set Up
-4. Introduction to Recursion
-5. Notebooks -
+
+***Please Note use TauSpace setup guide to get a Uniform Development environment around the company***
+
+1. Introduction to Recursion
+2. Notebooks -
    1. Match Operator
    2. Pattern Matching
    3. Data Types - Tuple, Atom, List, Map, Struct
    4. Flow Control - Recursion, for, cond, case, with
-6. Introduction to Mix
-7. Mix - Tutorials
-8. Mix - Stats Project
-9. Conclusion
-10. Final Words
+3. Introduction to Mix
+4. Mix - Tutorials
+5. Mix - Stats Project
+6. Conclusion
+7. Final Words
 
 The FreecodeCamp [Repository by Octallium](https://github.com/octallium/functional-programming-with-elixir) that contains the .livemd(Livebook Files used in the tutorial.) under the Notebooks Section, these files can be found. Go through the Video as he explains concepts of Elixir that will be of great importance.
 
@@ -113,6 +137,27 @@ end
 all_wonders = SevenWonders.all()
 ```
 
+Displaying data as lists or maps can be very tedious and confusing. One of the great features of Livebook helps us with this with the introduction of Kino Intergration, all we need to do is install a simple dependancy,as shown in the code below, is how we install a dependancy in Livebook, We will be using Kino VegaLite. This widget allow for rendering regular VegaLite graphic and then streaming new data points to update the graphic. You can find its repository [here](https://github.com/livebook-dev/kino_vega_lite) and the HexDocs on it  [here](https://hexdocs.pm/kino/0.2.0/Kino.VegaLite.html)
+
+```elixir
+Mix.install([
+  {:kino_vega_lite, "~> 0.1.9"},
+  {:kino_explorer, "~> 0.1.10"}
+])
+
+alias Explorer.DataFrame, as: DF
+
+# require Explorer.DataFrame
+```
+
+For more types of modules available go to the Exploring built in Kinos under the learn section in Livebook.
+Here we will use DataTable module to view our data.
+
+```elixir
+# We will now use Kino to display the data in a more presentable manner
+Kino.DataTable.new(all_wonders)
+```
+
 This function below calls print_names in the module Seven Wonders, and it is being passed all_wonders
 
 ```elixir
@@ -124,13 +169,19 @@ This function below calls filter_by_a_country that is in SevenWonders module, an
 
 ```elixir
 # filtering out a wonder and a country
-SevenWonders.filter_by_country(all_wonders, "Mexico")
+showMe = SevenWonders.filter_by_country(all_wonders, "Mexico")
 ```
 
-Sorting by the lenght of the country's name
+```elixir
+# We will now use Kino to display the data in a more presentable manner
+Kino.DataTable.new(showMe)
+```
+
+Sorting by the length of the country's name
 
 ```elixir
-SevenWonders.sort_by_country_length(all_wonders)
+# We will now use Kino to display the data in a more presentable manner
+Kino.DataTable.new(SevenWonders.sort_by_country_length(all_wonders))
 ```
 
 Reducing to the format: Wonder, Name of the country
@@ -141,9 +192,7 @@ SevenWonders.name_country_list(all_wonders)
 
 Returning a turple using a reduce function:
 
-```elixir
-SevenWonders.name_country_keyword_list(all_wonders)
-```
+<!-- livebook:{"break_markdown":true} -->
 
 We can use Map as shorter verion to retun names of wonders:
 
@@ -223,7 +272,20 @@ end
 sample = Expense.sample()
 ```
 
-A funtion to calculate the total amount spens on all items:
+Sorting data can get tedious using kinos, especially with the ability to use multiple Kinos sorting data is just a matter of a click of a button, go to the row you'd like the data to be sorted according to and kino offers you three sorting options, ascending, descending or none.
+
+For more information on Layout and other great capabilities it has kindly visit the Kino.Layout section on the 'Exploring built in Kinos' Notebook.
+
+```elixir
+# Here we use multiple Kinos to display the data above.
+
+Kino.Layout.tabs(
+  Table: Kino.DataTable.new(sample),
+  Raw: sample
+)
+```
+
+A funtion to calculate the total amount spent on all items:
 
 ```elixir
 Expense.total(sample)
@@ -235,13 +297,54 @@ Sort expense by the date:
 Expense.sort_by_date(sample)
 ```
 
+```elixir
+Kino.Layout.tabs(
+  Table: Kino.DataTable.new(sample),
+  Raw: sample
+)
+```
+
 Adding an Expense on a list of Sample:
 
 ```elixir
 expense = %Expense{title: "Stationary", date: ~D[2022-09-15], amount: 3000, store: "CNN"}
 # now we have a new expsense, we must now add it to the list
 # adding Stationary to Sample
-Expense.add_expense(expense)
+
+dataFrameRender = Expense.add_expense(expense)
+```
+
+To finish off with data handling and cells we use Smart Cells to  display data, this is a demonstration from the Data transform with Explorer.
+
+```elixir
+teams =
+  DF.new(
+    weekday: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    team: ["A", "B", "C", "A", "B", "C", "A", "B", "C", "A"],
+    hour: [10, 9, 10, 10, 11, 15, nil, 16, 14, 16]
+  )
+```
+
+<!-- livebook:{"attrs":{"assign_to":null,"collect":false,"data_frame":"teams","data_frame_alias":"Elixir.DF","is_data_frame":true,"missing_require":"Elixir.Explorer.DataFrame","operations":[{"active":true,"column":"hour","data_options":{"hour":"integer","team":"string","weekday":"string"},"datalist":[],"filter":"equal","message":null,"operation_type":"filters","type":"integer","value":"median"},{"active":true,"column":null,"data_options":{"hour":"integer","team":"string","weekday":"string"},"datalist":[],"filter":null,"operation_type":"filters","type":"string","value":null},{"active":true,"column":"team","data_options":{"hour":"integer","team":"string","weekday":"string"},"message":null,"operation_type":"fill_missing","scalar":null,"strategy":"forward","type":"string"}]},"chunks":null,"kind":"Elixir.KinoExplorer.DataTransformCell","livebook_object":"smart_cell"} -->
+
+```elixir
+require Explorer.DataFrame
+
+teams
+|> DF.to_lazy()
+|> DF.filter(hour == median(hour))
+|> DF.mutate(team: fill_missing(team, :forward))
 ```
 
 #### 3. Statistics - Project - Part 1 (Population Mean and Sample Mean)
@@ -275,6 +378,8 @@ defmodule Validators do
 end
 ```
 
+Debugging can be a real pain especially with multiple pipelines involved a cool feature Kino hijacs and makes it easier to debug by providing a visual aid as demonstarted in the code below.
+
 ```elixir
 defmodule Stats do
   alias Errors
@@ -289,6 +394,7 @@ defmodule Stats do
     nums
     |> Validators.validate_num_list()
     |> calc_population_mean()
+    |> dbg()
   end
 
   # def population_mean(_), do: Errors.invalid_data_type()
@@ -304,6 +410,9 @@ defmodule Stats do
     nums
     |> Enum.sum()
     |> mean(Enum.count(nums))
+    # When debugging a pipeline, Kino will render each step of the pipeline,
+    # allowing to inspect, toggle, and swap each operation along the way:
+    |> dbg()
   end
 
   # ----------------- MEAN ----------
@@ -373,6 +482,22 @@ IO.inspect("Data: #{data}")
 IO.puts("Mode: #{Mode.mode(data)}")
 ```
 
+Turn the switches on and off and see the result and what each function does when piped through the other in comparison to when it is running solo.
+
+```elixir
+"Livebook is cool!"
+|> String.trim_trailing("!")
+|> String.split()
+|> List.last()
+|> dbg()
+```
+
+One last neat trick in Livebook is a function called that shows us all started applications, look out for kino, vega_lite and others we have utilized in this document.
+
+```elixir
+Application.started_applications()
+```
+
 ### Learner  Checkpoint
 
 If the Concept of Elixir and functional Programming is still confusing to you there are more resources available, more notebooks have been attached this [Repository](https://github.com/ShawnMumbo/Livebook-Project) for practice Under the File Extra Codes.livemd.
@@ -385,6 +510,14 @@ From the above tutorial/demonstration, a couple of Livebook features have been u
 
 3. Collaboration with multiple users, this can either be by a thirdparty software like Github that does version control or directly via Livebook as shown [here](https://youtu.be/DA_4s972JMI?t=487), Jose Valim the ceator of Elixir tries to demo this too [here](https://youtu.be/EhSNXWkji6o?list=PLezCyUgorHVYR-M80A8rIx0fwy4E61RBE&t=531).
 
-It is important to note that this is only collaborative when running on the same notebook the Livebook  teams feature is still and development at the time of writing this document and hopefully it is implemented soon
+4. Drawing Diagrams with Mermaid on markdown,the map plan above shows an example the details on how to do it can be found [here](https://news.livebook.dev/v0.5-flowcharts-custom-widgets-intellisense-and-ui-improvements-4FcvbG) or on their [Official Website](http://mermaid.js.org/intro/).
 
-Once comfortable with the sections covered in this Notebook kindly move to the V1.2 for Intermediate and Senior Devepolopers.
+5. Installing dependancies in Livebook, Using Kino and Exploring built in kinos especially VegaLite to display graphix and sort data such as DataTable, Layouts and dbg that is used for [debugging](https://elixir-lang.org/getting-started/debugging.html) and showing pipelines.
+
+6. Introduction to Smart Cells and Kino Explorer to render tabular data, Kindly visit 'Data transform with Explorer' Notebook under the learn section for more details and also the [Youtube Video](https://www.youtube.com/watch?v=4hVIxyHxwK8&ab_channel=ElixirConf) on Automation with smart cells by Jos`e Valim explain the concepts too and it also talked about in the [Elixir Conference here](https://www.youtube.com/watch?v=Yw_EqX_KAw4&ab_channel=ElixirConf)
+
+   7. Display all running applications on Livebook.
+
+    It is important to note that this is only collaborative when running on the same notebook the Livebook  teams feature is still and development at the time of writing this document and hopefully it is implemented soon.
+
+   It is important to note that this is only collaborative when running on the same notebook the Livebook  teams feature is still and development at the time of writing this document and hopefully it is implemented soon

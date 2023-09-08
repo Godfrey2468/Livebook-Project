@@ -1,0 +1,107 @@
+<mxfile host="app.diagrams.net" modified="2023-09-07T09:39:35.678Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" etag="-s4vlZX38ZzEtyju5l8l" version="21.7.2" type="device">
+  <diagram name="Page-1" id="Pqa6qGc0SSbt5YkerGmR">
+    <mxGraphModel dx="1761" dy="536" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-1" value="&lt;b&gt;&lt;u&gt;LIVEBOOK LEARNING PATH&lt;/u&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="115" y="8" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="TnDoM-ceG1hmANwJAj7a-2" target="TnDoM-ceG1hmANwJAj7a-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="TnDoM-ceG1hmANwJAj7a-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="520" y="80" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-2" value="Phase 0: Set up Environment" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="322.5" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="TnDoM-ceG1hmANwJAj7a-3" target="TnDoM-ceG1hmANwJAj7a-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="TnDoM-ceG1hmANwJAj7a-3" target="TnDoM-ceG1hmANwJAj7a-32" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="TnDoM-ceG1hmANwJAj7a-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="383" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-3" value="Junior, &lt;br&gt;Intermediate,&lt;br&gt;Senior?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="330" y="180" width="105" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-6" value="Junior" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="150" y="208" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-7" value="Senior" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="470" y="208" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-10" value="Intermediate" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="290" y="400" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="TnDoM-ceG1hmANwJAj7a-11" target="TnDoM-ceG1hmANwJAj7a-12" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-11" value="Elixir &amp;amp; Livebook?" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="70" y="260" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-28" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="TnDoM-ceG1hmANwJAj7a-29" target="TnDoM-ceG1hmANwJAj7a-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-12" value="FreecodeCamp Elixir" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="180" y="255" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-16" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;" parent="1" vertex="1">
+          <mxGeometry x="620" y="30" width="40" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="TnDoM-ceG1hmANwJAj7a-17" target="TnDoM-ceG1hmANwJAj7a-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-17" value="Elixir and Erlang" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="65" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-21" value="Livebook" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="660" y="15" width="60" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-22" value="VS-Code" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="660" y="120" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-24" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;rotation=90;" parent="1" vertex="1">
+          <mxGeometry x="75" y="240" width="50" height="145" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-25" value="Basic Types&lt;br&gt;Collections and Enurables&lt;br&gt;IO &amp;amp; System" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="-35" y="340" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-26" value="Introduction&lt;br&gt;to&lt;br&gt;Livebook,&lt;br&gt;Notebook" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="135" y="340" width="90" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-30" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="TnDoM-ceG1hmANwJAj7a-12" target="TnDoM-ceG1hmANwJAj7a-29" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="310" as="sourcePoint" />
+            <mxPoint x="380" y="345" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-29" value="Basic Concepts&lt;br&gt;Understood" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="250" y="325" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-32" value="OTP" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="580" y="265" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TnDoM-ceG1hmANwJAj7a-33" value="" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.annotation_2;align=left;labelPosition=right;pointerEvents=1;rotation=90;" parent="1" vertex="1">
+          <mxGeometry x="620" y="300" width="50" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Yuyc-GDrWY7v9-gUiVvQ-1" value="SDiagram&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="250" y="628" width="80" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
