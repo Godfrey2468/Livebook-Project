@@ -675,6 +675,6 @@ The ability of Livebook being able to handle all these features and be called Me
 
 ### Connecting Livebook to Phoenix Liveview
 
-In order to do this we have to change the runtime settings and use a cookie and node configuration. Due to this we will carry out this part on a new Notebook to avoid messing up all the good work we did uin the other parts of the Notebook.
+In order to do this we have to change the runtime settings and use a cookie and node configuration. Due to this we will carry out this part on a new Notebook to avoid messing up all the good work we did in the other parts of the Notebook.
 
 <!-- livebook:{"offset":21822,"stamp":{"token":"QTEyOEdDTQ.vmAFJsnGOxqG_pc7dHuPYLbLs_QOg52I_O1xLktSP_ZlcuB0YZjkL9M6gqw.hp1tYpgNPLSBENyB.oJEo5rvuz7LhWFdXZD5mhlFV9bQBiVTqb86juvtP7sDauFCitBzrqyUILcFp.R6TKZuSgK2PnWFAcemGybQ","version":1}} -->
